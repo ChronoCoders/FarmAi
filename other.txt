@@ -1,0 +1,16 @@
+import os
+from pyodm import Node
+n = Node('localhost', 3000)
+task = n.create_task(['img/DJI_0556.JPG','img/DJI_0557.JPG','img/DJI_0558.JPG','img/DJI_0559.JPG','img/DJI_0560.JPG','img/DJI_0561.JPG','img/DJI_0562.JPG'])
+task.wait_for_completion()
+task.uuid
+os.listdir(task.download_assets("results"))
+
+docker run -ti --memory=5g -p 3000:3000 opendronemap/nodeodm
+
+sudo usermod -g www-data <YOUR_USERNAME>
+sudo adduser www-data $(whoami)
+try:
+    subprocess.run(["docker","run","-ti","--memory=5g","-p","3000:3000","opendronemap/nodeodm"],shell=True,stderr=subprocess.STDOUT)  
+except subprocess.CalledProcessError as e:
+    raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
